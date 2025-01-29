@@ -33,7 +33,7 @@ export const updateUser = async (data: { name: string, email: string, number: st
 }
 
 export const deleteUser = async (id: number) => {
-    const user = await User.findByPkco(id);
+    const user = await User.findByPk(id);
 
     if (!user) {
         throw { message: 'User not found with the provided id', status: 404 };
