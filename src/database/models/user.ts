@@ -6,6 +6,7 @@ interface UserAttributes {
   email: string;
   number: string;
   password: string;
+  role?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -19,6 +20,7 @@ export default (sequelize: Sequelize) => {
     public email!: string;
     public number!: string;
     public password!: string;
+    public role!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
@@ -48,6 +50,10 @@ export default (sequelize: Sequelize) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      role: {
+        type: DataTypes.STRING,
+        defaultValue: 'user',
       },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
