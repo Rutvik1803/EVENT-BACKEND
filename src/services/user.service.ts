@@ -14,15 +14,6 @@ export const getUserById = async (id: number) => {
     return user;
 }
 
-export const createUser = async (data: { name: string, email: string, number: string, password: string }) => {
-    const existingUser = await User.findOne({ where: { email: data.email } });
-
-    if (existingUser) {
-        throw { message: 'User already exists', status: 400 };
-    }
-    return await User.create(data);
-}
-
 export const updateUser = async (data: { name: string, email: string, number: string, password: string }, id: number) => {
     const user = await User.findByPk(id);
 

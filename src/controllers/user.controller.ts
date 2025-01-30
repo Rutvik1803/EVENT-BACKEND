@@ -26,16 +26,6 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
     }
 }
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
-    const data = req.body;
-    try {
-        const user = await UserService.createUser(data);
-        successResponse(res, user, 'User created successfully', 201);
-    } catch (error: any) {
-        next(errorResponse(res, error.message, error.status));
-    }
-}
-
 export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
     const id = Number(req.params.id);
     const data = req.body;

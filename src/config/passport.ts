@@ -3,6 +3,7 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import dotenv from 'dotenv';
 import db from '../database/models';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 const { User } = db
@@ -28,12 +29,14 @@ passport.use(
                     return done(null, { user: existingUser, token });
                 }
 
+                const defaultPassword = await bcrypt.hash('defaultPassword', 10);
+
                 // Create a new user
                 const newUser = await User.create({
                     name: profile.displayName,
                     email: profile.emails?.[0].value,
                     number: '123456789',
-                    password: 'defaultpassword',
+                    password: defaultPassword,
                     role: 'user',
                 });
 
