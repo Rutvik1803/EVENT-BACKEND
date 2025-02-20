@@ -5,6 +5,7 @@ import db from '../database/models';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
+import { sendVerificationEmail } from '../utils/emailService';
 
 dotenv.config();
 const { User } = db
@@ -43,6 +44,9 @@ passport.use(
                     role: 'user',
                     verificationToken,
                 });
+
+                // Send verification email
+                sendVerificationEmail(newUser.email, newUser.verificationToken);
 
                 // Generate JWT token for this new user
                 const token = jwt.sign(
