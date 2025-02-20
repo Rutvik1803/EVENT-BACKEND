@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import db from '../database/models';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 dotenv.config();
 const { User } = db
@@ -30,6 +31,8 @@ passport.use(
                 }
 
                 const defaultPassword = await bcrypt.hash('defaultPassword', 10);
+                //Generate a verification token
+                const verificationToken = crypto.randomBytes(32).toString('hex');
 
                 // Create a new user
                 const newUser = await User.create({
@@ -38,6 +41,7 @@ passport.use(
                     number: '123456789',
                     password: defaultPassword,
                     role: 'user',
+                    verificationToken,
                 });
 
                 // Generate JWT token for this new user

@@ -7,6 +7,8 @@ interface UserAttributes {
   number: string;
   password: string;
   role?: string;
+  isVerified?: boolean;
+  verificationToken?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -21,6 +23,8 @@ export default (sequelize: Sequelize) => {
     public number!: string;
     public password!: string;
     public role!: string;
+    public isVerified!: boolean;
+    public verificationToken!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
@@ -54,6 +58,14 @@ export default (sequelize: Sequelize) => {
       role: {
         type: DataTypes.STRING,
         defaultValue: 'user',
+      },
+      isVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      verificationToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
