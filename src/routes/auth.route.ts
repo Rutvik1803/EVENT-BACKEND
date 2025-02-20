@@ -9,7 +9,6 @@ router.get("/google", passport.authenticate("google", { scope: ["profile", "emai
 router.get("/google/callback", passport.authenticate("google", { session: false }), (req, res) => {
     const data = req.user as any;
     res.json({ user: data.user, token: data.token });
-
 })
 
 router.post("/login", loginUserController);
